@@ -53,9 +53,11 @@ while True:
 
     window["time_left"].update('{:02d}:{:02d}'.format(int(left/60), int(left%60)))
     
-    if (time in [873, 826, 510, 561, 566, 613, 618, 665, 697, 769, 774, 821, 826, 873, 878, 925] and count < 0):
-        playsound.playsound("files//alert.mp3")
+    for i in range (0, len(classes)):
+        if time == classes[i][1]*60 + classes[i][2]:
+            playsound.playsound("files//alert.mp3")
         count = 100
+    
     count -= 1
     #link events
     if event in ("Zoom"):
