@@ -44,19 +44,19 @@ while True:
     if event in (None, 'Quit'):             
         break
     for i in range (0, len(classes)):
-        if (time >= (classes[i][1]*60 + classes[i][2]) and time <= (classes[i][3]*60 + classes[i][4])):
+        if (time >= (classes[i][1]*60 + classes[i][2]) and time < (classes[i][3]*60 + classes[i][4])):
             window['_Class_'].update(classes[i][0])
             window["Schedule"].update("{}:{:02d} – {}:{:02d}".format(classes[i][1], classes[i][2], classes[i][3], classes[i][4]))
             left = (classes[i][3]*60 + classes[i][4])*60 - allSeconds
             zoom, link = classes[i][5], classes[i][6]
+
+            if (time == classes[i][1]*60 + classes[i][2] and count <= 0):
+                playsound.playsound("alert.mp3")
+                count = 100
             break
 
     window["time_left"].update('{:02d}:{:02d}'.format(int(left/60), int(left%60)))
     
-    for i in range (0, len(classes)):
-        if time == classes[i][1]*60 + classes[i][2]:
-            playsound.playsound("files//alert.mp3")
-        count = 100
     
     count -= 1
     #link events
