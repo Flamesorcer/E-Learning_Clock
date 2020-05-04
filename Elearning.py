@@ -2,6 +2,9 @@ import PySimpleGUI as sg
 import datetime
 import webbrowser
 import playsound
+from win10toast import ToastNotifier
+
+toaster = ToastNotifier()
 
 sg.theme('DarkBrown1')
 #Classes list goes Class name, beginning hour, beginning minute, end hour, end minute, zoom link, other link
@@ -18,7 +21,8 @@ classes = [ ["Engineering", 8, 30, 9, 21, "https://www.youtube.com/channel/UC6nS
             ["Ela", 13, 46 , 14, 33, "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA", "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"],
             ["Passing to Chinese", 14, 33, 14, 38, "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA", "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"],
             ["Chinese", 14, 38, 15, 25, "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA", "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"],
-            ["Freedom", 15, 25, 8, 30, "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA", "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"]
+            ["Freedom", 15, 25, 24, 0, "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA", "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"],
+            ["Freedom", 0, 0, 8, 30, "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA", "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"]
 ]
 
 layout = [  [sg.Text('None', size=(21, 1), justification='center', key='_Class_', font=(30))],
@@ -53,6 +57,10 @@ while True:
             if (time == classes[i][1]*60 + classes[i][2] and count <= 0):
                 playsound.playsound("alert.mp3")
                 count = 100
+                toaster.show_toast("E-Learning",classes[i][0], 
+                    icon_path=None,
+                   duration=10,
+                   threaded=True)
             break
 
     window["time_left"].update('{:02d}:{:02d}'.format(int(left/60), int(left%60)))
